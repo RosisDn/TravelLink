@@ -1,18 +1,221 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello World</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelLink</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="logo.png" alt="Logo" style="width: 3rem; height: 3rem;">
+                <span class="logo-text">TravelLink</span>
+            </div>
+            <nav class="nav">
+                <a href="#" class="nav-link">HOME</a>
+                <a href="#" class="nav-link">INSPIRATION</a>
+                <a href="#" class="nav-link">HELP CENTER</a>
+                <a href="#" class="nav-link">ABOUT</a>
+            </nav>
+            <button class="user-btn">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg>
+            </button>
+        </div>
+    </header>
 
-  <header>
-    <h1>Hello World</h1>
-  </header>
+   
+    <div class="hero-section">
+        <div class="hero-text">
+            <h1 class="hero-title">Discover Your Next Adventure</h1>
+            
+        </div>
+    </div>
 
-  <p>This is a test text for Git commission.</p>
-  <p>This is a test text for Git commission.</p>
-  <p>This is a test text for Git commission.</p>
+    <div class="container">
+        <div class="booking-card">
+            <h2 class="title">Find Your Flight</h2>
+            <form class="form">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>From</label>
+                        <div class="input-box">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            </svg>
+                            <select>
+                                <option>Arlanda (ARN)</option>
+                                <option>Göteborg</option>
+                                <option>Malmö</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>To</label>
+                        <div class="input-box">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            </svg>
+                            <select>
+                                <option>Tokyo(TKY)</option>
+                                <option>Paris (PAR)</option>
+                                <option>London (LNd)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Departure</label>
+                        <div class="input-box">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <input type="date">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Return</label>
+                        <div class="input-box">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <input type="date">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Travelers</label>
+                        <div class="input-box">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                            <select>
+                                <option>1 Traveler</option>
+                                <option>2 Travelers</option>
+                                <option>3 Travelers</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Class</label>
+                        <div class="input-box">
+                            <select>
+                                <option>Economy</option>
+                                <option>Business</option>
+                                <option>First Class</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="search-btn">
+                    Search Flights
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+     <!--  Destinations  -->
+    <div class="destinations-section">
+        <div class="destinations-container">
+            <h2 class="destinations-title">Popular Destinations</h2>
+            <div class="destinations-grid">
+                <!-- Tokyo -->
+                <div class="destination-card">
+                    <div class="destination-image" style="background-image: url('katt.jpg')"></div>
+                    <div class="destination-info">
+                        <div class="destination-country">JAPAN</div>
+                        <div class="destination-city">Tokyo</div>
+                        <div class="destination-details">
+                            Boka från till 12 mar 26<br>
+                            Economy klass Tur- och returresa
+                        </div>
+                        <div class="destination-price">från SEK ...</div>
+                    </div>
+                </div>
+
+                <!-- Bengaluru -->
+                <div class="destination-card">
+                    <div class="destination-image" style="background-image: url('katt.jpg')"></div>
+                    <div class="destination-info">
+                        <div class="destination-country">SCHWEIZ</div>
+                        <div class="destination-city">Bern</div>
+                        <div class="destination-details">
+                            Boka <br>
+                            
+                        </div>
+                        <div class="destination-price">från SEk ....
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bangkok -->
+                <div class="destination-card">
+                    <div class="destination-image" style="background-image: url('katt.jpg')"></div>
+                    <div class="destination-info">
+                        <div class="destination-country">THAILAND</div>
+                        <div class="destination-city">Bangkok</div>
+                        <div class="destination-details">
+                            Boka<br>
+                            
+                        </div>
+                        <div class="destination-price">från SEK ...</div>
+                    </div>
+                </div>
+
+                <!-- Dubai -->
+                <div class="destination-card">
+                    <div class="destination-image" style="background-image: url('katt.jpg')"></div>
+                    <div class="destination-info">
+                        <div class="destination-country">Norge</div>
+                        <div class="destination-city">Oslo</div>
+                        <div class="destination-details">
+                            Boka <br>
+                           
+                        </div>
+                        <div class="destination-price">från SEK ....</div>
+                    </div>
+                </div>
+
+                <!-- Colombo -->
+                <div class="destination-card">
+                    <div class="destination-image" style="background-image: url('katt.jpg')"></div>
+                    <div class="destination-info">
+                        <div class="destination-country">SRI LANKA</div>
+                        <div class="destination-city">Colombo</div>
+                        <div class="destination-details">
+                            Boka ....<br>
+                            
+                        </div>
+                        <div class="destination-price">från SEK ...</div>
+                    </div>
+                </div>
+
+                <!-- Mauritius -->
+                <div class="destination-card">
+                    <div class="destination-image" style="background-image: url('katt.jpg')"></div>
+                    <div class="destination-info">
+                        <div class="destination-country">Sweden</div>
+                        <div class="destination-city">Stockhol</div>
+                        <div class="destination-details">
+                            Boka <br>
+                            
+                        </div>
+                        <div class="destination-price">från SEK ....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
