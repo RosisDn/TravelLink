@@ -4,7 +4,7 @@
 -- -- can only be ran physically on the server as superadmin
 
 -- 1. Has to wipe out the outdated entries, so a clean table for routes
-TRUNCATE TABLE routes RESTART IDENTITY;
+TRUNCATE TABLE routes RESTART IDENTITY CASCADE;
 
 -- 2. Static definition for the 30 routes
 With base_catalog (origin, destination, type, base_price, first_departure) AS (VALUES
@@ -49,11 +49,11 @@ days AS (
 SELECT generate_series(0, 83) as d
 ),
 
-repeat AS (
+repeats AS (
 SELECT generate_series(0, 21, 3) as h
 )
 
-INSERT INTO routes (origin, destination, transport_type, base_price, departure_date, departure_time, available_seats) 
+INSERT INTO routes (origin, destination, transport_type, base_price, departure_date, departure_time, available_seats)
 SELECT
 bc.origin,
 bc.destination,
@@ -61,7 +61,7 @@ bc.type,
 bc.price,
 (CURRENT_DATE + (days.d || ' days')::interval)::date,
 ((bc.first_departure || ' hours')::interval + (repeats.h || ' hours')::interval)::time,
-ARRAY['1A', '1B', '1C', '2A', '2B',  '2C', '3A', '3B', '3C', '4A', '4B', '4C', '5A', '5B', '5C', '6A', '6B', '6C', '7A', '7B', '7C', '8A', '8B', '8C']
+ARRAY['1A', '1B', '1C', '2A', '2B', '2C', '3A', '3B', '3C', '4A', '4B', '4C', '5A', '5B', '5C', '6A', '6B', '6C', '7A', '7B', '7C', '8A', '8B', '8C', '9A', '9B', '9C', '10A', '10B', '10C', '11A', '11B', '11C', '12A', '12B', '12C']
 FROM base_catalog bc
 CROSS JOIN days
 CROSS JOIN repeats
