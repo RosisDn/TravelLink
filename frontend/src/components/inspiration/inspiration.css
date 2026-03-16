@@ -1,0 +1,265 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
+                url('05.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
+    color: white;
+    overflow-x: hidden;
+}
+
+
+.header {
+    width: 100%;
+    border-bottom: 3px solid white;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-image {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    transition: opacity 0.3s;
+    opacity: 0.75;
+    position: relative;
+}
+
+.nav-link:hover {
+    opacity: 1;
+}
+
+.nav-link.active {
+    opacity: 1;
+    font-weight: 600;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -26px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+}
+
+.user-button {
+    width: 40px;
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background: transparent;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.user-button:hover {
+    background: rgb(255, 255, 255);
+    color: black;
+}
+
+.user-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+.user-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+/* Hero */
+.inspiration-hero {
+    width: 100%;
+    padding: 24px 32px 60px;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 48px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Container för innehåll */
+.inspiration-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 40px 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 32px;
+    padding: 50px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+}
+/* Rubrik */
+.section-heading {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+
+.resource-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+/* En enskild resurs */
+.resource-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    transition: all 0.3s;
+}
+/* Hover-effekt på resurs  */
+.resource-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+/* Ikon-container*/
+.resource-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+/* Ikon i cirkeln */
+.resource-icon svg {
+    width: 28px;
+    height: 28px;
+}
+/* Rubrik för resurs  */
+.resource-info h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+/* Beskrivning för resurs */
+.resource-info p {
+    font-size: 15px;
+    opacity: 0.85;
+    line-height: 1.5;
+}
+/* Länk i resursbeskrivning */
+.resource-info a {
+    color: white;
+    text-decoration: underline;
+    opacity: 0.9;
+    transition: opacity 0.3s;
+}
+/* Hover-effekt på länk */
+.resource-info a:hover {
+    opacity: 1;
+}
+
+
+@media (max-width: 768px) {
+    .header-container {
+        padding: 16px 20px;
+    }
+    
+    .nav-menu {
+        display: none;
+    }
+    
+    .inspiration-hero {
+        padding: 80px 20px 60px;
+    }
+    
+    .hero-title {
+        font-size: 32px;
+    }
+    
+    .inspiration-content {
+        padding: 0 20px 80px;
+    }
+    
+    .glass-card {
+        padding: 32px 24px;
+        border-radius: 24px;
+    }
+    
+    .resource-item {
+        flex-direction: column;
+        text-align: center;
+    }
+}
