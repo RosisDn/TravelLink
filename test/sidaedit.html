@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelLink - Discover Your Next Adventure</title>
+    <link rel="stylesheet" href="style12.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="header-logo">
+                <img src="the_logo.png" alt="TravelLink Logo" class="logo-image">
+                <span class="logo-text">TravelLink</span>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="sidaedit.html" class="nav-link">HOME</a>
+                <a href="inspiration.html" class="nav-link">INSPIRATION</a>
+                <a href="h.html" class="nav-link">HELP CENTER</a>
+                <a href="#" class="nav-link">ABOUT</a>
+            </nav>
+            
+            <button class="user-button">
+                <i data-lucide="user"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="hero-section">
+        <h1 class="hero-title">Discover Your Next Adventure</h1>
+    </div>
+
+    <div class="booking-container">
+        <div class="booking-card">
+            <h2 class="booking-title">Find Your Destination</h2>
+            
+            <form class="booking-form" id="bookingForm">
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label class="form-label">From</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="map-pin" class="input-icon"></i>
+                            <div class="searchable-select" id="fromSelect">
+                                <button type="button" class="select-trigger">
+                                    <span class="select-value">Search destination</span>
+                                    <i data-lucide="chevrons-up-down" class="select-chevron"></i>
+                                </button>
+                                <div class="select-dropdown" style="display: none;">
+                                    <input type="text" class="select-search" placeholder="Search destination...">
+                                    <div class="select-list"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label class="form-label">To</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="map-pin" class="input-icon"></i>
+                            <div class="searchable-select" id="toSelect">
+                                <button type="button" class="select-trigger">
+                                    <span class="select-value">Search destination</span>
+                                    <i data-lucide="chevrons-up-down" class="select-chevron"></i>
+                                </button>
+                                <div class="select-dropdown" style="display: none;">
+                                    <input type="text" class="select-search" placeholder="Search destination...">
+                                    <div class="select-list"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label class="form-label">Departure</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="calendar" class="input-icon"></i>
+                            <div class="date-picker" id="departurePicker">
+                                <button type="button" class="select-trigger">
+                                    <span class="select-value placeholder">Select date</span>
+                                    <i data-lucide="chevrons-up-down" class="select-chevron"></i>
+                                </button>
+                                <div class="date-dropdown" style="display: none;">
+                                    <div class="date-header">
+                                        <button type="button" class="date-nav" data-action="prev-month">
+                                            <i data-lucide="chevron-left"></i>
+                                        </button>
+                                        <span class="date-month-year"></span>
+                                        <button type="button" class="date-nav" data-action="next-month">
+                                            <i data-lucide="chevron-right"></i>
+                                        </button>
+                                    </div>
+                                    <div class="date-calendar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label class="form-label">Return</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="calendar" class="input-icon"></i>
+                            <div class="date-picker" id="returnPicker">
+                                <button type="button" class="select-trigger">
+                                    <span class="select-value placeholder">Select date</span>
+                                    <i data-lucide="chevrons-up-down" class="select-chevron"></i>
+                                </button>
+                                <div class="date-dropdown" style="display: none;">
+                                    <div class="date-header">
+                                        <button type="button" class="date-nav" data-action="prev-month">
+                                            <i data-lucide="chevron-left"></i>
+                                        </button>
+                                        <span class="date-month-year"></span>
+                                        <button type="button" class="date-nav" data-action="next-month">
+                                            <i data-lucide="chevron-right"></i>
+                                        </button>
+                                    </div>
+                                    <div class="date-calendar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label class="form-label">Passengers</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="users" class="input-icon"></i>
+                            <div class="passenger-select">
+                                <button type="button" class="select-trigger" id="passengerTrigger">
+                                    <span class="select-value">2 Passengers</span>
+                                    <i data-lucide="chevrons-up-down" class="select-chevron"></i>
+                                </button>
+                                <div class="passenger-dropdown" id="passengerDropdown" style="display: none;">
+                                    <div class="passenger-counter">
+                                        <div>
+                                            <div class="counter-label">Adults</div>
+                                            <div class="counter-sublabel">18+</div>
+                                        </div>
+                                        <div class="counter-controls">
+                                            <button type="button" class="counter-btn" id="adultsDecrease">
+                                                <i data-lucide="minus"></i>
+                                            </button>
+                                            <span class="counter-value" id="adultsCount">1</span>
+                                            <button type="button" class="counter-btn" id="adultsIncrease">
+                                                <i data-lucide="plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="passenger-counter">
+                                        <div>
+                                            <div class="counter-label">Kids</div>
+                                            <div class="counter-sublabel">0-17</div>
+                                        </div>
+                                        <div class="counter-controls">
+                                            <button type="button" class="counter-btn" id="kidsDecrease">
+                                                <i data-lucide="minus"></i>
+                                            </button>
+                                            <span class="counter-value" id="kidsCount">0</span>
+                                            <button type="button" class="counter-btn" id="kidsIncrease">
+                                                <i data-lucide="plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label class="form-label">Transport Type</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="plane" class="input-icon" id="transportIcon"></i>
+                            <div class="transport-select">
+                                <button type="button" class="select-trigger" id="transportTrigger">
+                                    <span class="select-value">Flight</span>
+                                    <i data-lucide="chevrons-up-down" class="select-chevron"></i>
+                                </button>
+                                <div class="transport-dropdown" id="transportDropdown" style="display: none;">
+                                    <button type="button" class="transport-option active" data-transport="Flight">
+                                        <i data-lucide="plane"></i>
+                                        <span>Flight</span>
+                                    </button>
+                                    <button type="button" class="transport-option" data-transport="Bus">
+                                        <i data-lucide="bus"></i>
+                                        <span>Bus</span>
+                                    </button>
+                                    <button type="button" class="transport-option" data-transport="Train">
+                                        <i data-lucide="train"></i>
+                                        <span>Train</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="search-button">
+                    Search 
+                   
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="destinations-section">
+        <h2 class="section-title">Popular Destinations</h2>
+        
+        <div class="destinations-grid">
+            <div class="destination-card">
+                <div class="destination-image">
+                    <img src="stockholm.jpg" alt="Stockholm">
+                    <div class="destination-overlay">
+                        <h3 class="destination-name">Stockholm</h3>
+                        <p class="destination-country">Sweden</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-card">
+                <div class="destination-image">
+                    <img src="london.jpg" alt="London">
+                    <div class="destination-overlay">
+                        <h3 class="destination-name">London</template></h3>
+                        <p class="destination-country">United Kingdom</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-card">
+                <div class="destination-image">
+                    <img src="göteborg.jpg" alt="Gothemburg">
+                    <div class="destination-overlay">
+                        <h3 class="destination-name">Gothemburg</h3>
+                        <p class="destination-country">Sweden</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-card">
+                <div class="destination-image">
+                    <img src="oslo.jpg" alt="Oslo">
+                    <div class="destination-overlay">
+                        <h3 class="destination-name">Oslo</h3>
+                        <p class="destination-country">Norway</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-card">
+                <div class="destination-image">
+                    <img src="copenhagen.jpg" alt="Copenhagen">
+                    <div class="destination-overlay">
+                        <h3 class="destination-name">Copenhagen</h3>
+                        <p class="destination-country">Denmark</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-card">
+                <div class="destination-image">
+                    <img src="paris.jpg" alt="Paris">
+                    <div class="destination-overlay">
+                        <h3 class="destination-name">Paris</h3>
+                        <p class="destination-country">France</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

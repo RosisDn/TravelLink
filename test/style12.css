@@ -1,0 +1,742 @@
+/* Reset - tar bort standard marginaler och padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Huvudlayout med bakgrundsbild */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
+                url('05.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
+}
+/* Header - fast längst upp */
+.header {
+    width: 100%;
+    border-bottom: 3px solid white;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+/* Header innehåll - centrerat med max-bredd */
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+/* Logotyp och text */
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-image {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.02em;
+}
+/* Navigationsmeny */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+/* Navigeringslänkar */
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    transition: opacity 0.3s;
+    opacity: 0.75;
+    position: relative;
+}
+/* Hover-effekt på länkar */
+.nav-link:hover {
+    opacity: 1;
+}
+/* (nuvarande sida) */
+.nav-link.active {
+    opacity: 1;
+    font-weight: 600;
+}
+/* Understrykning för aktiv länk */
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -26px;  
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+}
+
+.user-button {
+    width: 40px;
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background: transparent;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.user-button:hover {
+    background: rgb(255, 255, 255);
+    color: black;
+}
+/* Ikon-storlek i användarknapp */
+.user-button svg {
+    width: 20px;
+    height: 20px;
+}   
+/* Hero-sektion med titel */
+.hero-section {
+    width: 100%;
+    padding: 24px 32px 60px;
+    text-align: center;
+}
+/* Stor rubrik */
+.hero-title {
+    font-size: 48px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.booking-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 32px;
+}
+/* Glassbakrunf för bokning */
+.booking-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    padding: 48px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.booking-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    margin-bottom: 32px;
+}
+/* Formulärets layout */
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+/* Grid för två kolumner */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+/* Enskilt formulärfält */
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+/* Etikett för formulärfält */
+.form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+/* Wrapper för input med ikon */
+.input-wrapper {
+    position: relative;
+}
+   /* Ikon inuti input-fält */
+.input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    z-index: 10;
+    pointer-events: none;
+}
+/* Textfält och datumväljare */
+.form-input {
+    width: 100%;
+    padding: 16px 16px 16px 48px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color-scheme: dark;
+    cursor: pointer;
+}
+/* Dölj standard datumväljare-ikon */
+.form-input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+/* Position för datumfält */
+.form-input[type="date"] {
+    position: relative;
+}
+/* Hover och fokus på input */
+.form-input:hover,
+.form-input:focus {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+/* Placeholder-text */
+.form-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+/* Container för alla dropdowns när man trycker så öppnas det*/
+.searchable-select,
+.passenger-select,
+.transport-select,
+.date-picker {
+    position: relative;
+}
+/* Knapp för dropdown  dvs lista*/
+.select-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 16px 16px 48px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s;
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* Hover på dropdown-knapp */
+.select-trigger:hover,
+.select-trigger:focus {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+/* Valt värde i dropdown */
+.select-value {
+    flex: 1;
+    text-align: left;
+}
+/* Placeholder-text i dropdown */
+.select-value.placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+/* Pil-ikon i dropdown */
+.select-chevron {
+    width: 16px;
+    height: 16px;
+    opacity: 0.5;
+    flex-shrink: 0;
+}
+/* Dropdown-meny */
+.select-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    max-width: 100vw;
+    background: rgba(80, 80, 90, 0.95);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    overflow: hidden;
+}
+/* Sökfält i dropdown */
+.select-search {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(60, 60, 70, 0.8);
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 14px;
+    outline: none;
+}
+/* Placeholder i sökfält */
+.select-search::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+/* Lista med alternativ */
+.select-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+/* Ett alternativ i listan */
+.select-item {
+    padding: 12px 16px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+/* Hover på alternativ */
+.select-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+/* Stad-namn i alternativ */
+.select-item-city {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.select-item-info {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+}
+/* Tomt resultat-meddelande */
+.select-empty {
+    padding: 24px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+}
+/* Dropdown för passagerare */
+.passenger-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    padding: 16px;
+    background: rgba(80, 80, 90, 0.95);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.passenger-counter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.passenger-counter:last-child {
+    margin-bottom: 0;
+}
+/* Passagerartyp (Vuxna, Barn, etc) */
+.counter-label {
+    font-size: 14px;
+    color: white;
+    font-weight: 600;
+}
+/* Undertext för passagerartyp */
+.counter-sublabel {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+/* Container för +/- knappar */
+.counter-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+/* Plus och minus knappar */
+.counter-btn {
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+/* Hover på +/- knappar */
+.counter-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.25);
+}
+/* Disabled knapp */
+.counter-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+/* Ikon i +/- knappar */
+.counter-btn svg {
+    width: 16px;
+    height: 16px;
+}
+/* Antal-visning */
+.counter-value {
+    color: white;
+    font-weight: 700;
+    width: 32px;
+    text-align: center;
+}
+
+/* Dropdown för transportmedel */
+.transport-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    padding: 12px;
+    background: rgba(80, 80, 90, 0.95);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+/* Alternativ för transport (Flyg, Tåg, bsu) */
+.transport-option {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    background: rgba(90, 90, 100, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+/* Hover på transport-alternativ */
+.transport-option:hover {
+    background: rgba(110, 110, 120, 0.8);
+}
+/* Valt transport-alternativ */
+.transport-option.active {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+/* Ikoner i transport-alternativ */
+.transport-option svg {
+    width: 20px;
+    height: 20px;
+    color: white;
+}
+/* Text i transport-alternativ */
+.transport-option span {
+    font-size: 14px;
+    color: white;
+    font-weight: 600;
+}
+/* Dropdown för datumväljare */
+.date-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    min-width: 320px;
+    padding: 16px;
+    background: rgba(90, 90, 100, 0.95);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+/* Header med månad/år och pilar */
+.date-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+/* Navigeringsknappar (< >) */
+.date-nav {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+/* Hover på navigeringsknappar */
+.date-nav:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+/* Pil-ikoner i navigation */
+.date-nav svg {
+    width: 18px;
+    height: 18px;
+}
+/* Månad och år-text */
+.date-month-year {
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+}
+/* Kalenderrutnät (7 kolumner) */
+.date-calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+/* Dag-namn (Mån, Tis, etc) */
+.date-day-name {
+    padding: 10px 4px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+/* Dag i kalendern */
+.date-day {
+    padding: 12px 8px;
+    text-align: center;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid transparent;
+}
+/* Hover på dag */
+.date-day:hover:not(.disabled):not(.empty) {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+/* Vald dag */
+.date-day.selected {
+    background: rgba(255, 255, 255, 0.35);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+/* Dagens datum */
+.date-day.today {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    font-weight: 700;
+}
+/* Inaktiverad dag (förfluten) */
+.date-day.disabled {
+    color: rgba(255, 255, 255, 0.25);
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0.03);
+}
+/* Tom dag (fylls inte i) */
+.date-day.empty {
+    background: transparent;
+    cursor: default;
+}
+
+.search-button {
+    width: 100%;
+    padding: 16px 32px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* Hover på sök-knapp */
+.search-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+}
+/* Ikon i sök-knapp */
+.search-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Popular Destinations  */
+.destinations-section {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 0 20px;
+}
+/* Rubrik för sektioner */
+.section-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    margin-bottom: 48px;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+/* Grid för destinationskort */
+.destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+/* Hover på destinationskort */
+.destination-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+/* Bildcontainer */
+.destination-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+/* Destinationsbild */
+.destination-image {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.destination-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Zoom på bild vid hover */
+.destination-card:hover .destination-image img {
+    transform: scale(1.1);
+}
+/* Gradient-overlay på bild */
+.destination-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.destination-name {
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 4px 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+/* Land för destination */
+.destination-country {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsiv design för mobil/tablet */
+@media (max-width: 768px) {
+    /* Dölj navigation på mobil */
+    .nav-menu {
+        display: none;
+    }
+    /* En kolumn på mobil */
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    /* Mindre rubrik på mobil */
+    .hero-title {
+        font-size: 32px;
+    }
+     /* Mindre padding på mobil */
+    .booking-card {
+        padding: 24px;
+    }
+    /* Full bredd på dropdown */
+    .select-dropdown {
+        width: 100%;
+    }
+}
