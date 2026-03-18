@@ -63,7 +63,9 @@ function App() {
                     <div className='header-actions'>
                         {/*placement before the burger button, in order for layout*/}
                         <button className="user-button">
+                            <NavLink to="/account" onClick={() => setIsMenuOpen(false)}>
                             <Icon.User />
+                            </NavLink>
                         </button>
                         {/*burger -- only visible on phone width -- between menu and X*/}
                         <button className="menu-toggle" onClick={toggleMenu}>

@@ -26,7 +26,7 @@ function Account() {
         */}
 
         <div className="glass-card">
-            <h2 className="section-heading">About Page</h2>
+            <h2 className="section-heading">Account Page</h2>
 
         </div>
 
