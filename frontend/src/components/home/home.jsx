@@ -1,7 +1,7 @@
 // little documentation guide as we have not used react before -- check for the commented ZONES
 
 // ZONE 1 -- imports similar to C++
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './home.css';
 import * as Icon from '../../icons';
 
@@ -49,6 +49,35 @@ function Home() {
         setActiveDropdown(null);
     };
 
+    // tracker for the calender
+    const [viewDate, setViewDate] = useState(new Date());
+
+    const generateDays = (date) => {
+        const year = date.getFullYear();
+        const month = date.getMonth();
+
+        // 1st day of the month
+        const firstDay = new Date(year, month, 1).getDay();
+        // total days in current month
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        const days = [];
+        // fill empty dates from previous month tail
+        for (let i = 0; i < (firstDay === 0 ?  6 : firstDay - 1); i++) {
+            days.push({ day: null, type: "empty"});
+        }
+        // fill actual calender days data
+        for (let d = 1; d <= daysInMonth; d++) {
+            const fullDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+            const isPassed = new Date(fullDate) < new Date().setHours(0, 0, 0, 0);
+            days.push({ day: d, date: fullDate, isPassed });
+        }
+        return days;
+    };
+    const changeMonth = (offset) => {
+        setViewDate(new Date(viewDate.setMonth(viewDate.getMonth() + offset)));
+    }
+
     // keep the parameters for the search API link call needed for data manipulation on server level
     const [formData, setFormData] = useState({
         origin: "",
@@ -57,19 +86,24 @@ function Home() {
         return_date: "",
         adults: 1,
         kids: 0,
-        transport_type: "Flight" // default value
+        transport_type: "Bus" // default value
     });
 
     // toggle state for dropdown for each necessary fields
     // it all updates the input change as well as the previous did
     const [activeDropdown, setActiveDropdown] = useState(null); // default
 
-    const [error, setError] = useState("");
 
     // update specific fields
     const updateField = (field, value) => {
         setFormData(prev => ({ ...prev, [field]: value}));
-        if (error) setError("");
+        if (errors[field]) {
+            setErrors(prev => {
+                const newErrors = { ...prev };
+                delete newErrors[field];
+                return newErrors;
+            });
+        }
     };
 
     // toggle dropdown
@@ -78,26 +112,61 @@ function Home() {
         setActiveDropdown(activeDropdown === name ? null : name);
     };
 
+    const bookingRef = useRef(null);
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            // active dropdown && user click outside the container
+            // handles every single type of input field, all opened containers
 
+            if (!activeDropdown) return;
+
+            const isSafeZone = event.target.closest('.form-field') ||
+                              event.target.closest('.select-dropdown') ||
+                              event.target.closest('.date-dropdown') ||
+                              event.target.closest('.passenger-dropdown') ||
+                              event.target.closest('.transport-dropdown');
+
+            if (!isSafeZone) {
+                setActiveDropdown(null);
+            }
+        };
+        // event to listen on the page each time a dropdown menu is active
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [activeDropdown]); // will always reset, so it will run each time a dropdown menu is opened, closed and opened again
+
+    const [errors, setErrors] = useState({});
     const runSearch = async (e) => {
         if (e) e.preventDefault();
 
         // validation to fire a search
-        const isOriginValid = uniqueOrigins.includes(formData.origin);
-        const isDestValid = uniqueDestinations.includes(formData.destination);
-        const isDateValid = formData.departure_date !== "";
+        let newErrors = {};
 
-        // validate fields
-        if (!isOriginValid || !isDestValid || !isDateValid) {
-            setError("Please fill in all the required fields in order to run a search.");
-            return;
+        //origin
+        if (!formData.origin.trim()) {
+            newErrors.origin = "Origin is required.";
+        } else if (!uniqueOrigins.includes(formData.origin)) {
+            newErrors.origin = "Valid origins from the list only!";
         }
-        // validate origin !== destination
-        if (formData.origin === formData.destination) {
-            setError("Origin and Destination cannot be the same.");
-            return;
+
+        //destination
+        if (!formData.destination.trim()) {
+            newErrors.destination = "Destination is required";
+        } else if (!uniqueDestinations.includes(formData.destination)) {
+            newErrors.destination = "Valid destinations from the list only!";
+        } else if (formData.origin === formData.destination) {
+            newErrors.destination = "Origin and Destination cannot be the same.";
         }
-        setError(""); // assuming validation passed
+
+        //date
+        if (!formData.departure_date) {
+            newErrors.departure_date = "Departure date is required.";
+        }
+
+        // update state with found error
+        setErrors(newErrors);
+        // do not run search in case errors are found
+        if (Object.keys(newErrors).length > 0) return;
 
         // want only the specific api parameters in the URL
         // the rest of the date will be handled by the front-end
@@ -146,9 +215,10 @@ function Home() {
                 <div className="form-grid">
 
                     {/*Field - ORIGIN*/}
+                    {/*form fields gets a temporary high z-index when certain tables are active, better display when focus is on them*/}
                     <div className="form-field">
                         <label className="form-label">*From</label>
-                        <div className="input-wrapper">
+                        <div className={`input-wrapper ${errors.origin ? 'input-error' : ''}`}>
                             <Icon.MapPin className="input-icon" />
                             <input
                                 type="text"
@@ -157,7 +227,6 @@ function Home() {
                                 value={formData.origin}
                                 onChange={(e) => updateField('origin', e.target.value)}
                                 onFocus={() => setActiveDropdown('origin')}
-                                onBlur={() => setTimeout(() => validateAndClose('origin', formData.origin, uniqueOrigins), 200)}
                             />
 
                             {activeDropdown === 'origin' && (
@@ -183,12 +252,13 @@ function Home() {
                                 </div>
                             )}
                         </div>
+                        {errors.origin && <span className="field-error-msg">{errors.origin}</span>}
                     </div>
 
                     {/*Field - DESTINATION*/}
                     <div className="form-field">
                         <label className="form-label">*To</label>
-                        <div className="input-wrapper">
+                        <div className={`input-wrapper ${errors.destination ? 'input-error' : ''}`}>
                             <Icon.MapPin className="input-icon" />
                             <input
                                 type="text"
@@ -197,7 +267,7 @@ function Home() {
                                 value={formData.destination}
                                 onChange={(e) => updateField('destination', e.target.value)}
                                 onFocus={() => setActiveDropdown('destination')}
-                                onBlur={() => setTimeout(() => validateAndClose('destination', formData.origin, uniqueOrigins), 200)}
+
                             />
 
                             {activeDropdown === 'destination' && (
@@ -225,56 +295,155 @@ function Home() {
                                 </div>
                             )}
                         </div>
+                        {errors.origin && <span className="field-error-msg">{errors.destination}</span>}
                     </div>
 
                                 {/*DEPARTURE DATE*/}
                     <div className="form-field">
                         <label className="form-label">*Departure</label>
-                        <div className="input-wrapper">
-                            <i data-lucide="calendar" className="input-icon"></i>
-                            <div className="date-picker" id="departurePicker">
-                                <button type="button" className="select-trigger">
-                                    <span className="select-value placeholder">Select date</span>
-                                    <i data-lucide="chevrons-up-down" className="select-chevron"></i>
+                        <div className={`input-wrapper ${errors.departure_date ? 'input-error' : ''}`}>
+                            <Icon.Calendar className="input-icon" />
+                            <div className="date-picker">
+                                {/*Dropdown with all dependency placeholder*/}
+                                <button type="button" className="select-trigger" onClick={(e) => toggleDropdown('departure', e)}>
+                                    <span className={`select-value ${!formData.departure_date ? 'placeholder' : ''}`}>
+                                        {formData.departure_date || "Select date"}
+                                    </span>
+                                    <Icon.ChevronsUpDown className="select-chevron" />
                                 </button>
-                                <div className="date-dropdown" style={{display: "block"}}>
-                                    <div className="date-header">
-                                        <button type="button" className="date-nav" data-action="prev-month">
-                                            <i data-lucide="chevron-left"></i>
-                                        </button>
-                                        <span className="date-month-year"></span>
-                                        <button type="button" className="date-nav" data-action="next-month">
-                                            <i data-lucide="chevron-right"></i>
-                                        </button>
+
+                                {activeDropdown === 'departure' && (
+                                    <div className="date-dropdown" onClick={(e) => e.stopPropagation()}>
+                                        <div className="date-header">
+                                            <button
+                                                type="button"
+                                                className="date-nav"
+                                                onClick={() => changeMonth(-1)}
+                                                >
+                                                    <Icon.ChevronLeft />
+                                            </button>
+                                                <span className="date-month-year">
+                                                    {viewDate.toLocaleString('default', {month: 'long', year: 'numeric'})}
+                                                </span>
+                                                <button
+                                                type="button"
+                                                className="date-nav"
+                                                onClick={() => changeMonth(1)}
+                                                >
+                                                    <Icon.ChevronRight />
+                                            </button>
+                                        </div>
+                                        <div className="date-calendar">
+                                            {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, index) =>(
+                                                <div key={`${day}-${index}`} className="date-day-name">{day}</div>
+                                            ))}
+                                            {generateDays(viewDate).map((item, idx) => (
+                                                <div
+                                                key={idx}
+                                                className={`date-day ${item.type === 'empty' ? 'empty' : ''} ${item.isPassed ? 'disabled' : ''} ${formData.departure_date === item.date ? 'selected' : ''}`}
+                                                onClick={() => !item.isPassed && item.day && (updateField('departure_date', item.date), setActiveDropdown(null))}
+                                                    >
+                                                    {item.day}
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <div className="date-calendar"></div>
-                                </div>
+                                )}
                             </div>
                         </div>
+                        {errors.origin && <span className="field-error-msg">{errors.departure_date}</span>}
                     </div>
 
                                 {/*RETURN*/}
                     <div className="form-field">
-                        <label className="form-label">Return</label>
-                        <div className="input-wrapper">
-                            <i data-lucide="calendar" className="input-icon"></i>
-                            <div className="date-picker" id="returnPicker">
-                                <button type="button" className="select-trigger">
-                                    <span className="select-value placeholder">Select date</span>
-                                    <i data-lucide="chevrons-up-down" className="select-chevron"></i>
+                        <label className="form-label">Return (optional)</label>
+                        <div className={`input-wrapper ${errors.return_date ? 'input-error' : ''}`}>
+                            <Icon.Calendar className="input-icon" />
+                            <div className="date-picker-wrapper" style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                                {/* Main trigger for the dropdown */}
+                                <button
+                                    type="button"
+                                    className="select-trigger"
+                                    onClick={(e) => toggleDropdown('return', e)}
+                                    style={{ flex: 1, display: 'flex', alignItems: 'center' }}
+                                >
+                                    <span className={`select-value ${!formData.return_date ? 'placeholder' : ''}`}>
+                                        {formData.return_date || "One Way"}
+                                    </span>
+                                    <Icon.ChevronsUpDown className="select-chevron" />
                                 </button>
-                                <div className="date-dropdown" style={{display: "block"}}>
-                                    <div className="date-header">
-                                        <button type="button" className="date-nav" data-action="prev-month">
-                                            <i data-lucide="chevron-left"></i>
-                                        </button>
-                                        <span className="date-month-year"></span>
-                                        <button type="button" className="date-nav" data-action="next-month">
-                                            <i data-lucide="chevron-right"></i>
-                                        </button>
+
+                                {/* The X button is now a SIBLING, perfectly aligned by the parent's flex-center
+                                Takes space outside the field, signals clearly that the field can be cleared*/}
+                                {formData.return_date && (
+                                    <button
+                                        type="button"
+                                        className="clear-btn"
+                                        onClick={(e) => {
+                                            e.stopPropagation(); // Prevents opening the dropdown when clearing
+                                            updateField('return_date', "");
+                                        }}
+                                        style={{ marginLeft: '8px', display: 'flex', alignItems: 'center' }}
+                                    >
+                                        <Icon.X size={20} />
+                                    </button>
+                                )}
+
+                                {activeDropdown === 'return' && (
+                                    <div className="date-dropdown" onClick={(e) => e.stopPropagation()}>
+                                        <div className="date-header">
+                                            <button
+                                                type="button"
+                                                className="date-nav"
+                                                onClick={() => changeMonth(-1)}
+                                                >
+                                                    <Icon.ChevronLeft />
+                                            </button>
+                                                <span className="date-month-year">
+                                                    {viewDate.toLocaleString('default', {month: 'long', year: 'numeric'})}
+                                                </span>
+                                                <button
+                                                type="button"
+                                                className="date-nav"
+                                                onClick={() => changeMonth(1)}
+                                                >
+                                                    <Icon.ChevronRight />
+                                            </button>
+                                        </div>
+                                        <div className="date-calendar">
+                                            {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, index) =>(
+                                                <div key={`${day}-${index}`} className="date-day-name">{day}</div>
+                                            ))}
+                                            {/*Data for the return calendar must respect the departure day, cannot literally travel back in time*/}
+                                            {generateDays(viewDate).map((item, idx) => {
+                                                // check if date is in the past
+                                                const isPast = item.isPassed;
+
+                                                // turn into date objects to use in math
+                                                const departureDateObj = formData.departure_date ? new Date(formData.departure_date) : null;
+                                                const currentItemDateObj = new Date(item.date);
+
+                                                // compare only on [day] level, not time
+                                                if (departureDateObj) departureDateObj.setHours(0, 0, 0, 0);
+                                                currentItemDateObj.setHours(0, 0, 0, 0);
+
+                                                // check if return date is before departure, if yes -- it will block the options in the calendar
+                                                const isBeforeDeparture = departureDateObj && (currentItemDateObj < departureDateObj);
+                                                const isDisabled = isPast || isBeforeDeparture;
+
+                                                return (
+                                                    <div
+                                                        key={item.date || idx}
+                                                        className={`date-day ${item.type === 'empty' ? 'empty' : ''} ${isDisabled ? 'disabled' : ''} ${formData.return_date === item.date ? 'selected' : ''}`}
+                                                        onClick={() => !isDisabled && item.day && (updateField('return_date', item.date), setActiveDropdown(null))}
+                                                    >
+                                                        {item.day}
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
                                     </div>
-                                    <div className="date-calendar"></div>
-                                </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -392,7 +561,11 @@ function Home() {
                     </div>
                 </div>
 
-                {error && <p className='error-message'>{error}</p>}
+                {Object.keys(errors).length > 0 && (
+                    <p className='error-message'>
+                        {errors.server || "Please fill in all the required fields correctly."}
+                    </p>
+                )}
                 <button
                     ype="submit"
                     className="search-button">

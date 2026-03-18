@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-do
 import Home from './components/home/home';
 import Inspiration from './components/inspiration/inspiration';
 import  HelpCenter from './components/helpCenter/helpCenter';
+import About from './components/about/about';
+import Account from './components/account/account';
 
 import * as Icon from './icons';
 
@@ -55,7 +57,7 @@ function App() {
                         <NavLink to="/" className="nav-link" onClick={() => setIsMenuOpen(false)}>HOME</NavLink>
                         <NavLink to="/inspiration" className="nav-link" onClick={() => setIsMenuOpen(false)}>INSPIRATION</NavLink>
                         <NavLink to="/helpcenter" className="nav-link" onClick={() => setIsMenuOpen(false)}>SUPPORT</NavLink>
-                        <NavLink to="/helpcenter" className="nav-link" onClick={() => setIsMenuOpen(false)}>ABOUT</NavLink>
+                        <NavLink to="/about" className="nav-link" onClick={() => setIsMenuOpen(false)}>ABOUT</NavLink>
                     </nav>
                     {/*They need to be wrapped together for the right placement*/}
                     <div className='header-actions'>
@@ -77,10 +79,12 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/inspiration" element={<Inspiration />} />
                     <Route path="/helpcenter" element={<HelpCenter />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/account" element={<Account />} />
                      {/*
                      gonna be added when they are ready
-                     <Route path="/about" element={<About />} />
                     <Route path="/account" element={<Account />} />
+                    -- this one will have to somehow derive from the user icon on the top right
                      */}
                 </Routes>
             </main>

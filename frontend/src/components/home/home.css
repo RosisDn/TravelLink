@@ -12,6 +12,61 @@
   }
   /* No header here -- that comes from App.css */
 
+  /*clear button on return calendar feature*/
+  .select-trigger, .clear-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    height: 100%; /* Ensure they share the same height context */
+    vertical-align: middle;
+}
+.clear-btn {
+  color: azure;
+  cursor: pointer;
+}
+
+.select-chevron, .clear-btn svg {
+    display: block; /* Removes the "text-baseline" gap below icons */
+}
+
+  /*error effects*/
+  .input-wrapper.input-error {
+    border-radius: 12px;
+    box-shadow:    0 0 0 2px rgba(255, 50, 50, 0.8),    0 0 15px rgba(255, 0, 0, 0.4);
+    background: rgba(255, 0, 0, 0.08);
+    border-color: transparent;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+}
+  /*red icon on mistake field*/
+  .input-wrapper.input-error .input-icon {
+    color: #ff4d4d !important;
+    opacity: 1 !important;
+  }
+
+  .field-error-msg {
+    color: #ee1b1b;
+    font-size: 11px;
+    margin-top: 4px;
+    display: block;
+    font-weight: 500;
+    padding-left: 10px; /* Aligns with the input text start */
+  }
+
+.error-text-small {
+    color: #ff4d4d;
+    font-size: 11px;
+    margin-top: 4px;
+    display: block;
+    font-weight: 500;
+}
+
   .user-button {
     width: 40px;
     height: 40px;
@@ -122,15 +177,19 @@
   .form-input {
     width: 100%;
     padding: 16px 16px 16px 48px !important;
-    background: rgba(255, 255, 255, 0.08); /* Slightly more subtle */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 14px; /* More rounded for modern look */
-    color: white;
+    background: rgba(255, 255, 255, 0.08);
+    /*Slightlymoresubtle*/border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px !important;
+    /*Moreroundedformodernlook*/color: white;
     font-size: 16px;
     font-weight: 500;
     outline: none;
     transition: all 0.2s ease;
-  }
+    -webkit-border-radius: 12px !important;
+    -moz-border-radius: 12px !important;
+    -ms-border-radius: 12px !important;
+    -o-border-radius: 12px !important;
+}
   /* Dölj standard datumväljare-ikon */
   .form-input[type="date"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
@@ -216,18 +275,22 @@
   /* Dropdown-meny */
   .select-dropdown {
     position: absolute;
-    top: calc(100% + 10px); /* Small gap */
-    left: 0;
+    top: calc(100% + 10px);
+    /*Smallgap*/left: 0;
     width: 100%;
-    background: rgba(30, 30, 35, 0.9); /* Darker, more premium */
-    backdrop-filter: blur(20px);
+    background: rgba(30, 30, 35, 0.9);
+    /*Darker,morepremium*/backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
+    border-radius: 18px;
     z-index: 1000;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     animation: slideIn 0.2s ease-out;
-  }
+    -webkit-border-radius: 18px;
+    -moz-border-radius: 18px;
+    -ms-border-radius: 18px;
+    -o-border-radius: 18px;
+}
   /* Sökfält i dropdown */
   .select-search {
     width: 100%;
@@ -376,7 +439,11 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-  }
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    -ms-border-radius: 16px;
+    -o-border-radius: 16px;
+}
   /* Alternativ för transport (Flyg, Tåg, bsu) */
   .transport-option {
     width: 100%;
@@ -388,10 +455,14 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
+    border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s;
-  }
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
   /* Hover på transport-alternativ */
   .transport-option:hover {
     background: rgba(110, 110, 120, 0.8);
@@ -416,26 +487,30 @@
   /* Dropdown för datumväljare */
   .date-dropdown {
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 5px);
     left: 0;
     width: 100%;
     min-width: 320px;
-    padding: 16px;
+    padding: 12px;
     background: rgba(90, 90, 100, 0.95);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 16px;
+    border-radius: 18px !important;
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
-    z-index: 100;
-  }
+    z-index: 200 !important;
+    -webkit-border-radius: 18px !important;
+    -moz-border-radius: 18px !important;
+    -ms-border-radius: 18px !important;
+    -o-border-radius: 18px !important;
+}
   /* Header med månad/år och pilar */
   .date-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
-    padding-bottom: 12px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
   /* Navigeringsknappar (< >) */
@@ -466,21 +541,21 @@
   .date-month-year {
     color: white;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 14px;
     letter-spacing: 0.02em;
   }
   /* Kalenderrutnät (7 kolumner) */
   .date-calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
+    gap: 4px;
   }
   /* Dag-namn (Mån, Tis, etc) */
   .date-day-name {
     padding: 10px 4px;
     text-align: center;
     color: rgba(255, 255, 255, 0.8);
-    font-size: 13px;
+    font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.05em;
   }
@@ -489,7 +564,7 @@
     padding: 12px 8px;
     text-align: center;
     color: white;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 600;
     border-radius: 10px;
     cursor: pointer;
