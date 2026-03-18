@@ -3,7 +3,7 @@
 // ZONE 1 -- imports similar to C++
 import './App.css';
 import React, { useState, useEffect, useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import Home from './components/home/home';
 import Inspiration from './components/inspiration/inspiration';
 import  HelpCenter from './components/helpCenter/helpCenter';

@@ -574,7 +574,7 @@ function Home() {
             </form>
         </div>
     </div>
-
+                {/*Suggested Destinations*/}
     <div className="destinations-section">
         <h2 className="section-title">Popular Destinations</h2>
 
@@ -601,9 +601,9 @@ function Home() {
 
             <div className="destination-card">
                 <div className="destination-image">
-                    <img src="göteborg.jpg" alt="Gothemburg"/>
+                    <img src="göteborg.jpg" alt="Gothenburg"/>
                     <div className="destination-overlay">
-                        <h3 className="destination-name">Gothemburg</h3>
+                        <h3 className="destination-name">Gothenburg</h3>
                         <p className="destination-country">Sweden</p>
                     </div>
                 </div>
