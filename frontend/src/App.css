@@ -53,6 +53,7 @@ body {
   object-fit: contain;
 }
 
+
 .logo-text {
   font-size: 24px;
   font-weight: 700;
@@ -134,13 +135,18 @@ body {
     right: -100%;
     width: 280px;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.1) !important;
-    backdrop-filter: blur(30px) !important;
-    -webkit-backdrop-filter: blur(30px) !important;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgb(99, 99, 101) !important;
+      backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(207, 196, 196, 0.25);
+ 
+   
     padding: 100px 20px !important;
     transition: right 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0) !important;
     z-index: 9999 !important;
+
+
+    
 
     border-left: 1px solid rgba(255, 255, 255, 0.2) !important;
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
