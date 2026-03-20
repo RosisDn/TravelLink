@@ -45,11 +45,11 @@ const destinations = [
     { id: 43, name: 'Alvesta', country: 'Sweden', image: 'Alvesta.jpg', description: 'Alvesta is a small town in Småland that most people pass through on the train. But the surrounding lakes and forests are really beautiful and it makes a good base for exploring the region. A quiet and pleasant place.' },
     { id: 44, name: 'Bromma', country: 'Sweden', image: 'Bromma.jpg', description: 'Bromma is basically part of Stockholm with its own airport which makes it super convenient. Its a green and leafy area with a more relaxed feel than the city centre. Good if you want to be close to Stockholm without being right in the middle of it.' },
 ]
-    
+
 
 
 function Inspiration() {
-    //vilken destination som är öppnad  
+    //vilken destination som är öppnad
     const [selected, setSelected] = useState(null);
     // vad användaren skriver i sökfältet
     const [search, setSearch] = useState('');
