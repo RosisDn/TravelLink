@@ -54,7 +54,7 @@ const RETURN_HOURS = Array.from({ length: 13 }, (_, i) => {
 });
 
 // Result Card ------------------------------- //
-// blueprint for card
+// blueprint for card, used for every instance
 function ResultCard({route, searchParams, isExpanded, onToggle, onContinue}) {
     const { adults, kids, return_date } = searchParams;
     const hasReturn = !!return_date;
@@ -242,7 +242,8 @@ function ResultCard({route, searchParams, isExpanded, onToggle, onContinue}) {
         );
 }
 
-function Search() {
+// very important to give the user state to the function here
+function Search({ user }) {
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -264,6 +265,18 @@ function Search() {
     };
 
     const handleContinue = (bookingData) => {
+        if (!user) {
+            // not logged in --> account page to do so
+            // should be able to continue from where they left with the booking after login
+            navigate('/account', {
+                state: {
+                    redirectTo: '/booking',
+                    bookingData: bookingData
+                }
+            });
+            return;
+        }
+        // if user already logged in, goes straight to booking
         navigate('/booking', { state: bookingData });
     };
 

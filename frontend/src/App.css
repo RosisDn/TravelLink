@@ -16,6 +16,22 @@ body {
   background-attachment: fixed;
   background-blend-mode: multiply;
 }
+
+/*Fixing override for the gray gap on the pages??*/
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.app-background {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
+
+
 /* Header - fast längst upp */
 .header {
   width: 100%;

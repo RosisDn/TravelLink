@@ -6,6 +6,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { HashRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import Home from './components/home/home';
 import Search from './components/search/search';
+import Booking from './components/common/Booking';
 import Inspiration from './components/inspiration/inspiration';
 import  HelpCenter from './components/helpCenter/helpCenter';
 import About from './components/about/about';
@@ -20,6 +21,27 @@ function App() {
 
     // using states for hamburger menu
     const [isMenuOpen, setIsMenuOpen] = useState(false); // default before checking width
+    // state for login
+    const [user, setUser] = useState(null);
+
+    // store log in data
+    useEffect(() => {
+        const saved = localStorage.getItem('travellink_user');
+        if (saved) {
+            try { setUser(JSON.parse(saved)); }
+            catch { localStorage.removeItem('travellink_user'); }
+        }
+    }, []);
+    // login logic
+    const handleLogin = (userData) => {
+        localStorage.setItem('travellink_user', JSON.stringify(userData));
+        setUser(userData);
+    };
+    // logout -- nothing on the backend part -- the frontend just "looses" the logged in state
+    const handleLogout = () => {
+        localStorage.removeItem('travellink_user');
+        setUser(null);
+    };
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -51,6 +73,7 @@ function App() {
         <Router>
             {/*The only object that stays here is the one repeating on each page - header with NAVBAR
             Will also wrap the whole body in the background image so that the path will always be resolved
+            Footer will also have to go here, as it goes on every page.
             */}
             <div
                 className='app-background'
@@ -60,6 +83,7 @@ function App() {
                     backgroundPosition: "center",
                     backgroundAttachment: "fixed",
                     backgroundBlendMode: "multiply",
+                    minHeight: "100vh"
             }}
                 >
                 <header className="header">
@@ -78,11 +102,11 @@ function App() {
                         {/*They need to be wrapped together for the right placement*/}
                         <div className='header-actions'>
                             {/*placement before the burger button, in order for layout*/}
-                            <button className="user-button">
-                                <NavLink to="/account" onClick={() => setIsMenuOpen(false)}>
-                                <Icon.User />
-                                </NavLink>
-                            </button>
+                            <NavLink to="/account" onClick={() => setIsMenuOpen(false)}>
+                                <button className={`user-button ${user ? 'logged-in' : ''}`}>
+                                    <Icon.User />
+                                </button>
+                            </NavLink>
                             {/*burger -- only visible on phone width -- between menu and X*/}
                             <button className="menu-toggle" onClick={toggleMenu}>
                                 {isMenuOpen ? <Icon.X size={32} /> : <Icon.Menu size={32} /> }
@@ -95,11 +119,15 @@ function App() {
                 <main>
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/search" element={<Search />} /> {/*as a redirection, it still has be to added here on the Routes*/}
+                        <Route path="/search" element={<Search user={user} />} /> {/*as a redirection, it still has be to added here on the Routes*/}
                         <Route path="/inspiration" element={<Inspiration />} />
                         <Route path="/helpcenter" element={<HelpCenter />} />
                         <Route path="/about" element={<About />} />
-                        <Route path="/account" element={<Account />} />
+                        <Route path="/booking" element={<Booking user={user} />} />
+                        <Route
+                            path="/account"
+                            element={<Account user={user} onLogin={handleLogin} onLogout={handleLogout} />}
+                        />
                     </Routes>
                 </main>
             </div>
