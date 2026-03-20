@@ -18,5 +18,7 @@ export {
     ArrowLeft,
     Palette,
     Menu,
-    X
+    X,
+    Mail,
+    Phone
 } from 'lucide-react';

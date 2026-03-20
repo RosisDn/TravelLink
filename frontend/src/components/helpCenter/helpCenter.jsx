@@ -40,12 +40,12 @@ function HelpCenter() {
 
         <div className="contact-options">
             <div className="option-item">
-                <i data-lucide="mail"></i>
-                <span>email</span>
+                <Icon.Mail />
+                <span>hotleonskennedy@umbrella.com</span>
             </div>
             <div className="option-item">
-                <i data-lucide="phone"></i>
-                <span>nummer</span>
+                <Icon.Phone />
+                <span>+676767676767</span>
             </div>
         </div>
     </div>
