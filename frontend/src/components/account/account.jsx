@@ -34,7 +34,7 @@ function Account({ user, onLogin, onLogout }) {
     const [loading, setLoading] = useState(false);
 
     // Profile editing
-    const [editField, setEditField] = useState(null); // 'email' | 'phone' | null
+    const [editField, setEditField] = useState(null);
     const [editValue, setEditValue] = useState('');
     const [editPassword, setEditPassword] = useState('');
     const [editError, setEditError] = useState('');
@@ -316,6 +316,7 @@ function Account({ user, onLogin, onLogout }) {
                                         value={regPhone}
                                         onChange={e => setRegPhone(e.target.value)}
                                         disabled={atLimit}
+                                        maxLength={10}
                                     />
                                 </div>
                                 <div className="auth-field auth-field-full">
@@ -444,6 +445,7 @@ function Account({ user, onLogin, onLogout }) {
                                     placeholder="New phone number"
                                     value={editValue}
                                     onChange={e => setEditValue(e.target.value)}
+                                    maxLength={10}
                                 />
                                 <input
                                     type="password"

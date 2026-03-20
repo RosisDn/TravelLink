@@ -130,6 +130,14 @@ function App() {
                         />
                     </Routes>
                 </main>
+                {/* --- Footer --------------- on every page --- */}
+                <footer className="app-footer">
+                    <img src='the_logo.png' alt='travellink_logo' className='footer-logo' />
+                    <div className='footer-brand'>TravelLink</div>
+                    <div className='footer-tagline'>Your journey starts here</div>
+                    <div className='footer-divider' />
+                    <div className='footer-copy'>© 2026 TravelLink - Andrei Bors | Yana Denisiuk | Julia Myjkowska</div>
+                </footer>
             </div>
         </Router>
     );
