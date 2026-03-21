@@ -1,25 +1,57 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './about.css'
-import * as Icon from '../../icons'
 
 function About() {
-    // all functions like useState/useEffect are written here, before the return
-    // commends in this sections are with // like in JS, as this is the script zone of the doc
+    // håller koll på om videon visas
+    const [showVideo, setShowVideo] = useState(false);
 
-  return (
-    <div className="inspiration-content">
-        {/*render zone, comments must be used like this here*/}
-        {/*i have copied a part from the inspiration page to give some example*/}
-        {/*you can delete all these divs here and start the work for about, the page is already routed to all the other ones from the Router on App.jsx*/}
-        {/*Use the .css files of the same name in their folders for the specific pages, this page uses about.css, the accounts one uses account.css*/}
+    return (
+        <div className="about-wrapper">
 
-        <div className="glass-card">
-            <h2 className="section-heading">About Page</h2>
+            {/* rubrik */}
+            <div className="about-hero">
+                <h1 className="about-title">Our Story</h1>
+                <p className="about-subtitle">How TravelLink came to life</p>
+            </div>
+
+            {/* text */}
+            <div className="glass-card about-card">
+                <h2 className="about-heading">Någon headline ?</h2>
+                <p className="about-text">
+                  Skriv texten här 
+
+                </p>
+                
+            </div>
+
+            {/* video */}
+            <div className="glass-card about-card">
+                <h2 className="about-heading">Company inspiration</h2>
+               
+
+                {/* knapp för visa videon */}
+                {!showVideo ? (
+                    <button className="video-btn" onClick={() => setShowVideo(true)}>
+                        <div className="video-thumbnail">
+                            <div className="play-icon">▶</div>
+                            <p className="video-label">Click to watch</p>
+                        </div>
+                    </button>
+                ) : (
+                    // videon visas när man klickat
+                    <div className="about-video">
+                        <iframe
+                            src="https://www.youtube.com/embed/u4ecB57jFhI?autoplay=1"
+                            title="Travel video"
+                            allowFullScreen
+                            allow="autoplay"
+                        />
+                    </div>
+                )}
+            </div>
 
         </div>
-
-    </div>
-  )
+    )
 }
 
 export default About
