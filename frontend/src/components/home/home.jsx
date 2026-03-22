@@ -1,9 +1,11 @@
 // little documentation guide as we have not used react before -- check for the commented ZONES
 
 // ZONE 1 -- imports similar to C++
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BookingForm from "../common/BookingForm";
+import { DestinationCard, DestinationModal } from "../common/DestinationCard";
+import destinations from "../common/destinationsData";
 import './home.css';
 
 // everything goes in the main App function
@@ -14,6 +16,7 @@ function Home() {
 
     // only uses the logic to define the new imported module, defining navigate
     const navigate = useNavigate();
+    const [selectDestination, setSelectedDestination] = useState(null);
 
     const handleSearch = (results, searchParams) => {
         navigate('/search', {
@@ -23,6 +26,9 @@ function Home() {
             }
         });
     };
+
+    // matching the previous version, 6 cards should be enough
+    const featuredDestinations = destinations.slice(0, 6);
 
     return (
 <>
@@ -49,71 +55,26 @@ function Home() {
         <h2 className="section-title">Popular Destinations
         <p style={{fontSize: "20px"}}>Check our Inspiration page for more!</p>
         </h2>
-
-        <div className="destinations-grid">
-            <div className="destination-card">
-                <div className="destination-image">
-                    <img src="stockholm.jpg" alt="Stockholm"/>
-                    <div className="destination-overlay">
-                        <h3 className="destination-name">Stockholm</h3>
-                        <p className="destination-country">Sweden</p>
-                    </div>
-                </div>
-            </div>
-
-            <div className="destination-card">
-                <div className="destination-image">
-                    <img src="london.jpg" alt="London"/>
-                    <div className="destination-overlay">
-                        <h3 className="destination-name">London</h3>
-                        <p className="destination-country">United Kingdom</p>
-                    </div>
-                </div>
-            </div>
-
-            <div className="destination-card">
-                <div className="destination-image">
-                    <img src="göteborg.jpg" alt="Gothenburg"/>
-                    <div className="destination-overlay">
-                        <h3 className="destination-name">Gothenburg</h3>
-                        <p className="destination-country">Sweden</p>
-                    </div>
-                </div>
-            </div>
-
-            <div className="destination-card">
-                <div className="destination-image">
-                    <img src="oslo.jpg" alt="Oslo"/>
-                    <div className="destination-overlay">
-                        <h3 className="destination-name">Oslo</h3>
-                        <p className="destination-country">Norway</p>
-                    </div>
-                </div>
-            </div>
-
-            <div className="destination-card">
-                <div className="destination-image">
-                    <img src="copenhagen.jpg" alt="Copenhagen"/>
-                    <div className="destination-overlay">
-                        <h3 className="destination-name">Copenhagen</h3>
-                        <p className="destination-country">Denmark</p>
-                    </div>
-                </div>
-            </div>
-
-            <div className="destination-card">
-                <div className="destination-image">
-                    <img src="paris.jpg" alt="Paris"/>
-                    <div className="destination-overlay">
-                        <h3 className="destination-name">Paris</h3>
-                        <p className="destination-country">France</p>
-                    </div>
-                </div>
-            </div>
+        <div className="destination-grid">
+            {featuredDestinations.map( dest => (
+                <DestinationCard
+                    key={dest.id}
+                    dest={dest}
+                    onOpen={setSelectedDestination}
+                />
+            ))}
         </div>
     </div>
+
+    {selectDestination && (
+        <DestinationModal
+            dest={selectDestination}
+            onClose={() => setSelectedDestination(null)}
+        />
+    )}
 </>
-)}
+);
+}
 
 // ZONE 4
 export default Home;

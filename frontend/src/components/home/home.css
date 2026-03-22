@@ -787,3 +787,18 @@
         margin: 8px auto !important;
     }
   }
+
+  /* ── Destination card grid & layout ──────────────────────────────── */
+  /* It will occupy more space = more content on the page in this layout, the homepage is pretty empty */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .destinations-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .destinations-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}

@@ -248,3 +248,21 @@
         gap: 16px;
     }
 }
+
+/* Not gonna go through your whole css here, just gonna add an addition at the end of the file here to override and apply the resolution effect */
+@media (max-width: 768px) {
+    .inspiration-wrapper {
+        padding: 20px 16px 80px;
+    }
+
+    .destinations-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .destinations-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

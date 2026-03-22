@@ -28,14 +28,14 @@ function About() {
                 Etiam sed fringilla sapien, quis pharetra arcu. Ut in nisl mattis, consectetur nulla ut, interdum orci. Nulla a est non dolor rutrum tempus vel ut felis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque iaculis nisi ac eros tempor euismod. Etiam vulputate dictum nisl vitae pretium. Fusce sit amet ornare nunc. Nam vulputate eros sed quam fringilla, eget rutrum justo ultricies. Curabitur ut condimentum nibh, vel fringilla mauris. Nullam justo nisi, blandit eget augue scelerisque, consequat auctor neque. Curabitur lacinia luctus neque, a ornare diam porta id.
                 </p>
                 <div className='about-image-wrapper'>
-                    <img src='devZoe.jpg' alt='image-mia' className='about-image'/>
+                    <img src='devZoe.jpg' alt='image-mia' className='about-image' style={{objectPosition: "center 15%"}}/>
                     <p className='wrapper-image-text'>Dev 2 - the adventurous (bites hand if snacks)</p>
                 </div>
                 <p className="about-text">
                 Praesent ullamcorper aliquam enim, non molestie dolor interdum vitae. Donec euismod sollicitudin ullamcorper. Etiam bibendum elit dui, sed imperdiet leo commodo quis. Duis at risus sit amet lorem faucibus vehicula quis laoreet ipsum. Cras vitae elementum quam. Nunc feugiat fringilla orci. Ut et placerat leo. Cras tristique gravida dolor eget imperdiet. Sed facilisis massa gravida, gravida velit ut, finibus nisl. Nulla luctus augue dui, non tempor nibh varius non. Sed porta odio eu ligula tempus accumsan. Nullam malesuada vulputate erat vitae ultrices. Nullam volutpat, velit feugiat sagittis commodo, dui diam efficitur purus, ac fermentum augue nisl vel enim. Mauris mollis, eros sed bibendum lobortis, nisi magna tristique justo, dictum facilisis ex nulla vitae tellus. Nam nec eleifend nunc. Praesent pulvinar sapien quis ex euismod, a feugiat diam congue.
                 </p>
                 <div className='about-image-wrapper'>
-                    <img src='devGoldie.jpg' alt='image-goldie' className='about-image'/>
+                    <img src='devGoldie.jpg' alt='image-goldie' className='about-image' style={{objectPosition: "center 55%"}}/>
                     <p className='wrapper-image-text'>Dev 3 - well...the orange one (the kind of orange cat behaviour you would expect)</p>
                 </div>
 

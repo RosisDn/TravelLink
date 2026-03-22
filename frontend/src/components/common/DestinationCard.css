@@ -1,0 +1,195 @@
+/* ── Card ────────────────────────────────────────────────────────────────── */
+.dest-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.dest-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* image uses will-change instead of transform (ahem yana) to prevent repaint lag, otherwise images */
+.dest-card-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    will-change: transform;
+    transition: transform 0.4s ease;
+}
+
+.dest-card:hover .dest-card-image {
+    transform: scale(1.05);
+}
+
+.dest-card-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.dest-card-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+}
+
+.dest-card-country {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+}
+
+.dest-card-readmore {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: auto;
+    padding-top: 8px;
+    transition: color 0.2s;
+}
+
+.dest-card:hover .dest-card-readmore {
+    color: white;
+}
+
+/* ── Modal ───────────────────────────────────────────────────────────────── */
+.dest-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    padding: 20px;
+}
+
+.dest-modal-card {
+    border-radius: 28px;
+    overflow: hidden;
+    max-width: 760px;
+    width: 100%;
+    min-height: 420px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+}
+
+.dest-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(0, 0, 0, 0.45);
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 10;
+}
+
+.dest-modal-close:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.dest-modal-body {
+    width: 100%;
+    padding: 32px;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+/* Still keeping the glassmorph style
+Cannot use darkening directly on blur effect, the text ends up not being much readable
+We can go with something glass similar but darker
+*/
+.dest-modal-glass {
+    background: rgba(15, 15, 25, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 18px;
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.dest-modal-title {
+    font-size: 36px;
+    font-weight: 800;
+    color: white;
+    margin: 0;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+.dest-modal-country {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0;
+}
+
+.dest-modal-description {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 580px;
+}
+
+@media (max-width: 768px) {
+    .dest-card-image {
+        height: 160px;
+    }
+
+    .dest-card-name {
+        font-size: 18px;
+    }
+
+    .dest-modal-card {
+        min-height: 340px;
+    }
+
+    .dest-modal-title {
+        font-size: 26px;
+    }
+
+    .dest-modal-body {
+        padding: 24px;
+    }
+
+    .dest-modal-description {
+        font-size: 13px;
+    }
+}
