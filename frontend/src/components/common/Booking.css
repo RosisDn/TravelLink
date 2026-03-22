@@ -506,6 +506,42 @@
     color: rgba(255, 255, 255, 0.8);
 }
 
+/* ─── Return ticket notice ──────────────────────────────────────────────── */
+.return-auto-notice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    margin-top: 4px;
+}
+
+/* ─── Extra styling for the icons on the hero ────────────────────────────────*/
+.summary-type {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgb(255, 255, 255);
+    text-transform: capitalize;
+}
+
+.summary-type svg {
+    width: 32px;
+    height: 32px;
+    opacity: 1.0;
+}
+
+.summary-arrow {
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+}
+
 /* ─── Responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
     .booking-page {

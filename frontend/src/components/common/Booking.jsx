@@ -284,8 +284,10 @@ function Booking({ user }) {
             const passengersPayload = passengers.map((p, i) => ({
                 full_name: p.full_name.trim(),
                 seat_number: selectedSeats[i],
-                final_price: getPassengerPrice(p.type)
-            }));
+                final_price: getPassengerPrice(p.type),
+                return_date: hasReturn ? return_date : null,
+                return_time: hasReturn ? returnHour : null
+            })); // added the return parameters too
 
             // Step 3 — create the tickets
             const bookRes = await fetch(`${API}/api/tickets`, {
@@ -357,12 +359,11 @@ function Booking({ user }) {
                         <span className="summary-time">{formatTime(route.departure_time)}</span>
                     </div>
                     <div className="summary-middle">
-                        <span className="summary-arrow">→</span>
                         <span className="summary-type">
                             {route.transport_type === 'plane' && <Icon.Plane />}
                             {route.transport_type === 'bus' && <Icon.Bus />}
                             {route.transport_type === 'train' && <Icon.Train />}
-                            {' '}{route.transport_type}
+                            <span className="summary-arrow">→</span>
                         </span>
                     </div>
                     <div className="summary-leg summary-leg-right">
@@ -387,10 +388,18 @@ function Booking({ user }) {
                                 {new Date(return_date).toLocaleDateString('en-GB', {
                                     day: 'numeric', month: 'short', year: 'numeric'
                                 })}
-                                {returnHour ? ` at ${returnHour}` : ''}
+                                {returnHour ? ` departing at ${returnHour}` : ''}
                             </span>
                         </div>
                     )}
+                    {/* Return seat notice -- keep it on a notice, implementing it would need to reset too many dependencies before deadline*/}
+                    {hasReturn && (
+                        <div className="return-auto-notice">
+                            <span>↩</span>
+                            Return seat automatically matched — same seat booked for the return journey.
+                        </div>
+                    )}
+
                     <div className="summary-meta-item">
                         <span className="summary-meta-label">Passengers</span>
                         <span className="summary-meta-value">

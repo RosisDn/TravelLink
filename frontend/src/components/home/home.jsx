@@ -46,7 +46,9 @@ function Home() {
 
     {/*Suggested Destinations*/}
     <div className="destinations-section">
-        <h2 className="section-title">Popular Destinations</h2>
+        <h2 className="section-title">Popular Destinations
+        <p style={{fontSize: "20px"}}>Check our Inspiration page for more!</p>
+        </h2>
 
         <div className="destinations-grid">
             <div className="destination-card">

@@ -293,7 +293,6 @@ function Account({ user, onLogin, onLogout }) {
                             >
                                 {loading ? 'Signing in...' : 'Sign in'}
                             </button>
-
                             <p className="auth-switch">
                                 Don't have an account?{' '}
                                 <button
@@ -379,7 +378,9 @@ function Account({ user, onLogin, onLogout }) {
                             >
                                 {loading ? 'Creating account...' : 'Create account'}
                             </button>
-
+                            <p className='auth-switch'>
+                                Limit reached? -- log in on test@test.com / test123
+                            </p>
                             <p className="auth-switch">
                                 Already have an account?{' '}
                                 <button
