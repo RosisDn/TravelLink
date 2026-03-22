@@ -64,8 +64,22 @@ function BookingForm({ initialData = {}, onSearch }) {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [activeDropdown]);
 
+    // Swap button for origin/destination
+    const swapLocations = () => {
+        const currentOrigin = formData.origin;
+        const currentDestination = formData.destination;
+        updateField('origin', currentDestination);
+        updateField('destination', currentOrigin);
+    };
+
+    // now also clears the destination UI when origin is changed -- added from destination choice cap
     const updateField = (field, value) => {
-        setFormData(prev => ({ ...prev, [field]: value }));
+        setFormData(prev => {
+            const updated = { ...prev, [field]: value };
+            // clear destination if origin changes
+            if (field === 'origin') updated.destination = '';
+            return updated;
+        });
         if (errors[field]) {
             setErrors(prev => {
                 const updated = { ...prev };
@@ -171,8 +185,12 @@ function BookingForm({ initialData = {}, onSearch }) {
         <form className="booking-form" onSubmit={runSearch}>
             <div className="form-grid">
 
-                {/* ORIGIN */}
-                <div className="form-field">
+                {/*ORIGIN & DESTINATION
+                Contained together in order to add the swap button smoothly
+                */}
+                <div className="route-fields-wrapper">
+                    {/* ORIGIN */}
+                    <div className="form-field">
                     <label className="form-label">*From</label>
                     <div className={`input-wrapper ${errors.origin ? 'input-error' : ''}`}>
                         <Icon.MapPin className="input-icon" />
@@ -211,46 +229,60 @@ function BookingForm({ initialData = {}, onSearch }) {
                     {errors.origin && <span className="field-error-msg">{errors.origin}</span>}
                 </div>
 
-                {/* DESTINATION */}
-                <div className="form-field">
-                    <label className="form-label">*To</label>
-                    <div className={`input-wrapper ${errors.destination ? 'input-error' : ''}`}>
-                        <Icon.MapPin className="input-icon" />
-                        <input
-                            type="text"
-                            className="form-input"
-                            placeholder="Search Destination..."
-                            value={formData.destination}
-                            onChange={(e) => updateField('destination', e.target.value)}
-                            onFocus={() => setActiveDropdown('destination')}
-                        />
-                        {activeDropdown === 'destination' && (
-                            <div className="select-dropdown" style={{ display: 'block' }}>
-                                <div className="select-list">
-                                    {uniqueDestinations
-                                        .filter(city =>
-                                            city.toLowerCase().includes(formData.destination.toLowerCase()) &&
-                                            city !== formData.origin
-                                        )
-                                        .map(city => (
-                                            <div
-                                                key={city}
-                                                className="select-item"
-                                                onMouseDown={(e) => {
-                                                    e.preventDefault();
-                                                    updateField('destination', city);
-                                                    setActiveDropdown(null);
-                                                }}
-                                            >
-                                                <div className="select-item-city">{city}</div>
-                                                <div className="select-item-info">Location Available</div>
-                                            </div>
-                                        ))}
+                    <button
+                        type="button"
+                        className="swap-btn"
+                        onClick={swapLocations}
+                        title="Swap origin and destination"
+                    >
+                        ⇄
+                    </button>
+
+                    {/* DESTINATION */}
+                    <div className="form-field">
+                        <label className="form-label">*To</label>
+                        <div className={`input-wrapper ${errors.destination ? 'input-error' : ''}`}>
+                            <Icon.MapPin className="input-icon" />
+                            <input
+                                type="text"
+                                className="form-input"
+                                placeholder="Search Destination..."
+                                value={formData.destination}
+                                onChange={(e) => updateField('destination', e.target.value)}
+                                onFocus={() => setActiveDropdown('destination')}
+                            />
+                            {activeDropdown === 'destination' && (
+                                <div className="select-dropdown" style={{ display: 'block' }}>
+                                    <div className="select-list">
+                                    {(formData.origin
+                                        ? [...new Set(availableRoutes
+                                            .filter(r => r.origin === formData.origin)
+                                            .map(r => r.destination))]
+                                        : uniqueDestinations
+                                    ).filter(city =>
+                                        city.toLowerCase().includes(formData.destination.toLowerCase()) &&
+                                        city !== formData.origin
+                                    )
+                                            .map(city => (
+                                                <div
+                                                    key={city}
+                                                    className="select-item"
+                                                    onMouseDown={(e) => {
+                                                        e.preventDefault();
+                                                        updateField('destination', city);
+                                                        setActiveDropdown(null);
+                                                    }}
+                                                >
+                                                    <div className="select-item-city">{city}</div>
+                                                    <div className="select-item-info">Location Available</div>
+                                                </div>
+                                            ))}
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
+                        </div>
+                        {errors.destination && <span className="field-error-msg">{errors.destination}</span>}
                     </div>
-                    {errors.destination && <span className="field-error-msg">{errors.destination}</span>}
                 </div>
 
                 {/* DEPARTURE DATE */}

@@ -26,6 +26,7 @@
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
     align-items: end;
+    grid-template-columns: 1fr 28px 1fr 1fr 1fr 1fr;
 }
 
 .search-bar-card .form-label {
@@ -48,6 +49,24 @@
 .search-bar-card .search-button {
     padding: 10px 16px;
     font-size: 14px;
+}
+
+/*Also for the compact version on the search page*/
+.search-bar-card .swap-btn {
+    position: static;
+    translate: none;
+    top: auto;
+    left: auto;
+    align-self: end;
+    margin-bottom: 2px;
+    width: 28px;
+    height: 28px;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.search-bar-card .form-grid {
+    grid-template-columns: 1fr 28px 1fr 1fr 1fr 1fr;
 }
 
 /* ─── Results section ────────────────────────────────────────────────────── */
@@ -434,5 +453,33 @@
     .continue-btn {
         align-self: stretch;
         text-align: center;
+    }
+
+    /* Swap compact version */
+    .route-fields-wrapper {
+        display: flex !important;
+        flex-direction: column;
+        gap: 0;
+        grid-column: 1 / -1;
+    }
+    .swap-btn {
+        position: static;
+        translate: none;
+        top: auto;
+        left: auto;
+        width: 28px;
+        height: 28px;
+        font-size: 20px;
+        margin: 6px auto !important;
+    }
+    .search-bar-card .swap-btn {
+        position: static;
+        translate: none;
+        width: 28px;
+        height: 28px;
+        font-size: 20px;
+    }
+    .search-bar-card .form-grid {
+        grid-template-columns: 1fr;
     }
 }

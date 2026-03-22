@@ -33,9 +33,12 @@ function SeatPicker({ transportType, availableSeats, selectedSeats, onToggleSeat
 
     // Column definitions per transport type
     const layoutConfig = {
-        plane: { left: ['A', 'B', 'C'], right: [],  aisle: false },
-        bus:   { left: ['A'],           right: ['B'], aisle: true },
-        train: { left: ['A', 'B'],      right: ['C'], aisle: true },
+        // Plane: 2+2 with aisle — A B | C D
+        plane: { left: ['A', 'B'], right: ['C', 'D'], aisle: true },
+        // Train: same 2+2 layout as plane
+        train: { left: ['A', 'B'], right: ['C', 'D'], aisle: true },
+        // Bus: 2+1 with aisle — A B | C
+        bus:   { left: ['A', 'B'], right: ['C'],       aisle: true },
     };
 
     const layout = layoutConfig[transportType?.toLowerCase()] || layoutConfig.plane;
@@ -182,6 +185,15 @@ function Booking({ user }) {
         }
         setPassengers(list);
     }, []); // runs once on mount only -- the error is not relevant for the logic case
+
+    // --- IMPORTANT FOR NAVIGATION FLOW ────────────────────────────────────────────────
+    useEffect(() => {
+        if (success) {
+            // Replace current history entry so back button skips the booking page -- avoids double booking confusion
+            window.history.replaceState(null, '', '/');
+        }
+    }, [success]);
+
 
     // ── Early return AFTER all hooks ───────────────────────────────────────
     if (!bookingData) {

@@ -41,7 +41,7 @@ function HelpCenter() {
         <div className="contact-options">
             <div className="option-item">
                 <Icon.Mail />
-                <span>hotleonskennedy@umbrella.com</span>
+                <span>hotleons.kennedy@umbrella.com</span>
             </div>
             <div className="option-item">
                 <Icon.Phone />

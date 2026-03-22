@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './account.css';
+import { generateTicketPDF } from '../../utils/ticketPDF';
 import * as Icon from '../../icons';
 
 const API = 'https://api.andreiradxa.online';
@@ -39,6 +40,11 @@ function Account({ user, onLogin, onLogout }) {
     const [editPassword, setEditPassword] = useState('');
     const [editError, setEditError] = useState('');
     const [editSuccess, setEditSuccess] = useState('');
+
+    // Ticket refund check
+    const [expandedTicketId, setExpandedTicketId] = useState(null);
+    const [returningTicketId, setReturningTicketId] = useState(null);
+    const [returnError, setReturnError] = useState('');
 
     // Ticket history
     const [tickets, setTickets] = useState([]);
@@ -181,6 +187,40 @@ function Account({ user, onLogin, onLogout }) {
         } catch (err) {
             setEditError("Could not reach server.", err);
         }
+    };
+
+    const handleReturnTicket = async (ticketId) => {
+        setReturnError('');
+        try {
+            const res = await fetch(`${API}/api/tickets/${ticketId}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: user.id })
+            });
+            const data = await res.json();
+            if (data.success) {
+                // Remove ticket from local state immediately
+                setTickets(prev => prev.filter(t => t.id !== ticketId));
+                setReturningTicketId(null);
+                setExpandedTicketId(null);
+            } else {
+                setReturnError(data.message || "Return failed.");
+            }
+        } catch (err) {
+            setReturnError("Could not reach server.", err);
+        }
+    };
+    const isReturnable = (ticket) => {
+        const departure = new Date(ticket.departure_date);
+        const now = new Date();
+        const hoursUntil = (departure - now) / (1000 * 60 * 60);
+        return hoursUntil >= 24;
+    };
+    // This will still allow ticket return of current day, they should instead expire some hour after departure or so but i am too tired to go that deep into it
+    const isExpired = (ticket) => {
+        const departure = new Date(ticket.departure_date);
+        departure.setHours(23, 59, 59, 0); // end of departure day
+        return departure < new Date();
     };
 
     const openEditField = (field) => {
@@ -473,7 +513,7 @@ function Account({ user, onLogin, onLogout }) {
                 </div>
             </div>
 
-            {/* Ticket history card */}
+            {/* Ticket history card, return & download*/}
             <div className="account-glass-card">
                 <h3 className="account-section-label">Booking history</h3>
 
@@ -485,40 +525,117 @@ function Account({ user, onLogin, onLogout }) {
                     </div>
                 ) : (
                     <div className="tickets-list">
-                        {tickets.map(ticket => (
-                            <div key={ticket.id} className="ticket-card">
-                                <div className="ticket-route">
-                                    <span className="ticket-origin">{ticket.origin}</span>
-                                    <span className="ticket-arrow">→</span>
-                                    <span className="ticket-destination">{ticket.destination}</span>
-                                    <span className="ticket-type-badge">{ticket.transport_type}</span>
+                        {tickets.map(ticket => {
+                            const expanded = expandedTicketId === ticket.id;
+                            const confirming = returningTicketId === ticket.id;
+                            const returnable = isReturnable(ticket);
+
+                            return (
+                                <div
+                                    key={ticket.id}
+                                    className={`ticket-card ${expanded ? 'ticket-expanded' : ''} ${returnable ? 'ticket-returnable' : ''}`}
+                                    onClick={() => {
+                                        if (!confirming) {
+                                            setExpandedTicketId(expanded ? null : ticket.id);
+                                            setReturningTicketId(null);
+                                            setReturnError('');
+                                        }
+                                    }}
+                                >
+                                    <div className="ticket-route">
+                                        <span className="ticket-origin">{ticket.origin}</span>
+                                        <span className="ticket-arrow">→</span>
+                                        <span className="ticket-destination">{ticket.destination}</span>
+                                        <span className="ticket-type-badge">{ticket.transport_type}</span>
+                                        {/*So only ticket past in time will show as expired*/}
+                                        {isExpired(ticket) && (
+                                            <span className="ticket-expired-badge">Expired</span>
+                                        )}
+                                    </div>
+
+                                    <div className="ticket-details">
+                                        <div className="ticket-detail">
+                                            <span className="ticket-detail-label">Passenger</span>
+                                            <span className="ticket-detail-value">{ticket.passenger_full_name}</span>
+                                        </div>
+                                        <div className="ticket-detail">
+                                            <span className="ticket-detail-label">Date</span>
+                                            <span className="ticket-detail-value">
+                                                {new Date(ticket.departure_date).toLocaleDateString('en-GB', {
+                                                    day: 'numeric', month: 'short', year: 'numeric'
+                                                })}
+                                            </span>
+                                        </div>
+                                        <div className="ticket-detail">
+                                            <span className="ticket-detail-label">Seat</span>
+                                            <span className="ticket-detail-value">{ticket.seat_number}</span>
+                                        </div>
+                                        <div className="ticket-detail">
+                                            <span className="ticket-detail-label">Price paid</span>
+                                            <span className="ticket-detail-value">
+                                                {parseFloat(ticket.final_price).toFixed(2)} SEK
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {expanded && (
+                                        <div
+                                            className="ticket-actions"
+                                            onClick={e => e.stopPropagation()}
+                                        >
+                                            <div className="ticket-actions-divider" />
+
+                                            {!confirming ? (
+                                                <div className="ticket-action-buttons">
+                                                    <button
+                                                        className="ticket-download-btn"
+                                                        onClick={() => generateTicketPDF(ticket)}
+                                                    >
+                                                        Download PDF
+                                                    </button>
+                                                    {returnable && (
+                                                        <button
+                                                            className="ticket-return-btn"
+                                                            onClick={() => setReturningTicketId(ticket.id)}
+                                                        >
+                                                            Return ticket
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            ) : (
+                                                <div className="ticket-confirm-return">
+                                                    <p className="ticket-confirm-text">
+                                                        Are you sure you want to return this ticket?
+                                                        Your seat will be released and may be taken by someone else.
+                                                        This cannot be undone.
+                                                    </p>
+                                                    {returnError && (
+                                                        <p className="ticket-return-error">{returnError}</p>
+                                                    )}
+                                                    <div className="ticket-action-buttons">
+                                                        <button
+                                                            className="ticket-return-confirm-btn"
+                                                            onClick={() => handleReturnTicket(ticket.id)}
+                                                        >
+                                                            Yes, return ticket
+                                                        </button>
+                                                        <button
+                                                            className="ticket-cancel-btn"
+                                                            onClick={() => {
+                                                                setReturningTicketId(null);
+                                                                setReturnError('');
+                                                            }}
+                                                        >
+                                                            Keep ticket
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="ticket-details">
-                                    <div className="ticket-detail">
-                                        <span className="ticket-detail-label">Passenger</span>
-                                        <span className="ticket-detail-value">{ticket.passenger_full_name}</span>
-                                    </div>
-                                    <div className="ticket-detail">
-                                        <span className="ticket-detail-label">Date</span>
-                                        <span className="ticket-detail-value">
-                                            {new Date(ticket.departure_date).toLocaleDateString('en-GB', {
-                                                day: 'numeric', month: 'short', year: 'numeric'
-                                            })}
-                                        </span>
-                                    </div>
-                                    <div className="ticket-detail">
-                                        <span className="ticket-detail-label">Seat</span>
-                                        <span className="ticket-detail-value">{ticket.seat_number}</span>
-                                    </div>
-                                    <div className="ticket-detail">
-                                        <span className="ticket-detail-label">Price paid</span>
-                                        <span className="ticket-detail-value">
-                                            {parseFloat(ticket.final_price).toFixed(2)} SEK
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 )}
             </div>

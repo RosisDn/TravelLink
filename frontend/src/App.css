@@ -141,26 +141,28 @@ body, html {
   /* 2. The Drawer Parent */
   .header-container .nav-menu {
     display: flex !important;
-    flex-direction: column !important; /* Stacks links vertically */
-    align-items: flex-start !important; /* Aligns links to the left */
-    justify-content: flex-start !important;
-
+    flex-direction: column !important;
+    /*Stacks links vertically*/align-items: flex-start !important;
+    /*Aligns links to the left*/justify-content: flex-start !important;
     position: fixed !important;
     top: 0;
     right: -100%;
     width: 280px;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.1) !important;
-    backdrop-filter: blur(30px) !important;
-    -webkit-backdrop-filter: blur(30px) !important;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    /*the*/
+    background: rgba(10, 12, 24, 0.75) !important;
+    backdrop-filter: blur(60px) saturate(800%) !important;
+    -webkit-backdrop-filter: blur(60px) saturate(800%) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: -10px 0 60px rgba(0, 0, 0, 0.5) !important;
     padding: 100px 20px !important;
-    transition: right 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0) !important;
-    z-index: 9999 !important;
-
-    border-left: 1px solid rgba(255, 255, 255, 0.2) !important;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
-  }
+    transition: right 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0) !important;
+    -webkit-transition: right 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0) !important;
+    -moz-transition: right 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0) !important;
+    -ms-transition: right 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0) !important;
+    -o-transition: right 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0) !important;
+    z-index: 9999;
+}
 
   .header-container .nav-menu.open {
     right: 0 !important;
@@ -270,6 +272,7 @@ body, html {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
+  position: relative; /* specially for the hover button */
 }
 /* Enskilt formulärfält */
 .form-field {
@@ -871,6 +874,7 @@ body, html {
   color: rgba(255, 255, 255, 0.2);
 }
 
+
 /* Responsiv design för mobil/tablet */
 @media (max-width: 768px) {
   /* En kolumn på mobil */
@@ -889,4 +893,5 @@ body, html {
   .select-dropdown {
       width: 100%;
   }
+
 }
